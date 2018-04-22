@@ -1,0 +1,2 @@
+# pixelclicker
+Clicker for fun
