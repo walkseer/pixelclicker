@@ -1,7 +1,28 @@
+//LOAD
 app.get.images =
 [
 	'right'
 ];
+
+//INI
+
+app.create.enemy = function (_)
+{
+	let enemy = app.create.button (_);
+		enemy.hp = 1;
+		enemy.level = 0;
+	return enemy;
+}
+
+var player =
+{
+	level: 0,
+	name: '',
+	pixels: 10,
+	stage: 0
+}
+
+//RUN
 
 app.scene.run = function ()
 {
@@ -66,6 +87,19 @@ app.scene.test = function ()
 		h: 100,
 		i: app.i.right,
 		x: 0,
+		y: 0,
+		w: 100
+	}).load ();
+
+	app.create.enemy
+	({
+		action: function ()
+		{
+			app.scene.load ('test1');
+		},
+		h: 100,
+		i: app.i.right,
+		x: 110,
 		y: 0,
 		w: 100
 	}).load ();

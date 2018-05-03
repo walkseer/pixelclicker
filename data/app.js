@@ -96,6 +96,53 @@ app =
 			return animation;
 		},
 
+		bar: function (_)
+		{
+			let bar = app.create.box (_);
+				bar.max = _.max || 1;
+				bar.now = _.now || 0;
+				bar.old = undefined;
+
+				bar.draw = function ()
+				{
+					let k = bar.now / bar.max;
+					if (bar.color) { context.fillStyle = bar.color; context.strokeStyle = bar.color; }
+					context.clearRect (hwxy.x, hwxy.y, hwxy.width, hwxy.height);
+					context.fillRect (hwxy.x, hwxy.y, k * hwxy.width, hwxy.height);
+					context.strokeRect (hwxy.x, hwxy.y, hwxy.width, hwxy.height);
+				}
+
+				bar.add = function (n)
+				{
+					if (bar.now + n < 0)
+					{
+						bar.now = 0;
+					} else if (bar.now + n > bar.max)
+					{
+						bar.now = bar.max;
+					} else
+					{
+						bar.now += n;
+					}
+				}
+
+				bar.status = function ()
+				{
+					if (bar.now != bar.old)
+					{
+						bar.old = bar.now;
+						bar.draw ();
+					}
+				}
+
+				bar.tick = function ()
+				{
+					bar.status ();
+				}
+
+			return bar;
+		},
+
 		box: function (_)
 		{
 			let box = app.create.object (_);
